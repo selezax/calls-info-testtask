@@ -27,8 +27,14 @@ class Customer implements CustomerInterface
         foreach ($this->data as $item){
             $continent = $this->IpStack->getContinentByIp($item['CustomerIP']);
             if($this->phoneInfo->numberCompareContinent($item['PhoneNumber'], $continent)){
-                $result[$continent]['number']++;
-                $result[$continent]['duration'] += $item['Duration'];
+                if(isset($result[$continent])){
+                    $result[$continent]['number']++;
+                    $result[$continent]['duration'] += $item['Duration'];
+                }
+                else{
+                    $result[$continent]['number'] = 1;
+                    $result[$continent]['duration'] = $item['Duration'];
+                }
             }
         }
 

@@ -15,7 +15,6 @@
                 <?php
                 $data = $params['data'];
                 foreach ($data->getCustomersList() as $customerId):
-                    if($customerId != 2354) continue;
                     $customer = $data->getCustomerById($customerId);
                     $byContinent = $customer->calculatingByContinent();
                     ?>
@@ -42,10 +41,7 @@
                         <?php echo $customer->convertSecondToFullTime($time) ?>
                     </td>
                 </tr>
-                <?php
-//                    die('<pre>' . print_r($byContinent, true) . '</pre>');
-                    endforeach;
-                 ?>
+                <?php endforeach; ?>
                 </tbody>
 
             </table>
