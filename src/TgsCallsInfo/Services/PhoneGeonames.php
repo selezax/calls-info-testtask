@@ -7,8 +7,8 @@ use TgsCallsInfo\Contracts\PhoneGeonamesInterface;
 
 class PhoneGeonames implements PhoneGeonamesInterface
 {
+    const FILENAME = 'countryInfo.txt';
     protected $dataList;
-    protected $file = 'countryInfo.txt';
     protected $fields = [
         'ISO',
         'ISO3',
@@ -70,7 +70,7 @@ class PhoneGeonames implements PhoneGeonamesInterface
         try{
             $row = 1;
 
-            if (($handle = fopen($this->file, "r")) !== FALSE) {
+            if (($handle = fopen(self::FILENAME, "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 0, "\t")) !== FALSE) {
                     if($data[0][0] == '#') continue;
                     $num = count($data);

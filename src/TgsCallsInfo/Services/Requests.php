@@ -5,6 +5,8 @@ use TgsCallsInfo\Contracts\RequestsInterface;
 
 class Requests implements RequestsInterface
 {
+    const csrfTokenName = 'csrf';
+    const csrfFieldName = 'csrf_token';
     /**
      * @param string $prop
      * @param null $default
@@ -46,14 +48,36 @@ class Requests implements RequestsInterface
     }
 
     /**
+     * @return string
+     */
+    public static function createCSRF():string {
+        if (!isset($_SESSION) || !array_key_exists(self::csrfTokenName, $_SESSION)) {
+            $_SESSION[self::csrfTokenName] = uniqid('tokenCSRF_');
+        }
+        return $_SESSION[self::csrfTokenName];
+    }
+
+    /**
+     * @return bool
+     */
+    public function chkCSRF():bool {
+        if(isset($_REQUEST[self::csrfFieldName]) && isset($_SESSION) && array_key_exists(self::csrfTokenName, $_SESSION)){
+            return $_REQUEST[self::csrfFieldName] == $_SESSION[self::csrfTokenName];
+        }
+
+        return false;
+    }
+
+    /**
      * @param array $validate
      * @return bool
      */
     public function validate(array $validate = []):bool {
         try {
             $fieldsResult = count($validate);
-            if (!$fieldsResult)
+            if (!$fieldsResult || !$this->chkCSRF())
                 return false;
+
 
             foreach ($validate as $field => $rules) {
                 $fieldsResult -= $this->fieldRules($field, $rules);

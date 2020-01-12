@@ -6,9 +6,9 @@ use TgsCallsInfo\Contracts\IpstackAPIInterface;
 
 class IpstackAPI implements IpstackAPIInterface
 {
+    const KEY_API = 'd9f000dbc0237078dfb39bf8033d244c';
+    const URL_API = 'http://api.ipstack.com/';
     protected $dataList = [];
-    protected $key = 'd9f000dbc0237078dfb39bf8033d244c';
-    protected $url = 'http://api.ipstack.com/';
 
     private static $instances = [];
 
@@ -80,6 +80,6 @@ class IpstackAPI implements IpstackAPIInterface
      * @return string
      */
     protected function buildURL(string $ip):string {
-        return sprintf('%s%s?access_key=%s', $this->url, $ip, $this->key);
+        return sprintf('%s%s?access_key=%s', self::URL_API, $ip, self::KEY_API);
     }
 }

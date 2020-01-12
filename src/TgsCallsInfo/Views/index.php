@@ -7,6 +7,7 @@
                 </div>
                 <div class="card-body">
                     <form action="index.php" method="post" enctype="multipart/form-data" >
+                        <input type="hidden" name="csrf_token" value="<?php echo \TgsCallsInfo\Services\Requests::createCSRF() ?>">
                         <input type="hidden" name="action" value="info">
                         <input type="hidden" name="method" value="upload">
                         <div class="form-group">
