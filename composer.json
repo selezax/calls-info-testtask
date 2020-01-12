@@ -1,0 +1,13 @@
+{
+  "name": "calls-info-testtask/app",
+  "description" : "Test task",
+  "authors": [
+    {
+      "name": "Seleznyov Alexandr",
+      "email": "selezax@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {"TgsCallsInfo\\": "src/TgsCallsInfo/"}
+  }
+}
